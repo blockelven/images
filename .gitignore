@@ -1,1 +1,4 @@
 .elixir_ls
+
+elixir/_build
+elixir/deps
