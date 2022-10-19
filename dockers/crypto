@@ -1,0 +1,15 @@
+FROM watsy0007/elixir-rust:v0.1.1 as build
+
+ENV RUSTUP_HOME=/root/.rustup \
+    RUSTFLAGS="-C target-feature=-crt-static" \
+    CARGO_HOME=/root/.cargo  \
+    PATH="/root/.cargo/bin:$PATH"
+
+WORKDIR /build
+
+# set build ENV
+ENV MIX_ENV=prod
+
+# install mix dependencies
+COPY mix.exs mix.lock ./
+RUN mix do deps.get, deps.compile

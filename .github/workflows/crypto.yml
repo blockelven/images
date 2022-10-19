@@ -1,0 +1,33 @@
+name: build and post to docker registry
+on:
+  push:
+    tags:
+      - crypto-*
+
+jobs:
+  build_job:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get short SHA
+        id: slug
+        run: |
+          echo "::set-output name=sha::${GITHUB_SHA}"
+          echo "::set-output name=tag::${GITHUB_REF#refs/*/}"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.HUB_USERNAME }}
+          password: ${{ secrets.HUB_TOKEN }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          file: dockers/elixir
+          tags: watsy0007/elixir-rust:${{ steps.slug.outputs.tag }}

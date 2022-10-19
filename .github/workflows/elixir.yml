@@ -2,7 +2,7 @@ name: build and post to docker registry
 on:
   push:
     tags:
-      - v*
+      - base-*
 
 jobs:
   build_job:
@@ -29,5 +29,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
+          context: elixir
           file: dockers/elixir
           tags: watsy0007/elixir-rust:${{ steps.slug.outputs.tag }}
