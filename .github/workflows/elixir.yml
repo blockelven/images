@@ -29,4 +29,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
+          file: dockers/elixir
           tags: ${{ steps.slug.outputs.tag }}
