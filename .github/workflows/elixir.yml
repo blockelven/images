@@ -30,4 +30,4 @@ jobs:
         with:
           push: true
           file: dockers/elixir
-          tags: ${{ steps.slug.outputs.tag }}
+          tags: watsy0007/elixir-rust:${{ steps.slug.outputs.tag }}
