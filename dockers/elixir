@@ -1,15 +1,15 @@
 FROM elixir:1.14.0-slim as build
 
-RUN apt-get update && \
-    apt-get install -y curl git build-essential && \
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+# RUN apt-get update && \
+#     apt-get install -y curl git build-essential && \
+#     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-ENV RUSTUP_HOME=/root/.rustup \
-    RUSTFLAGS="-C target-feature=-crt-static" \
-    CARGO_HOME=/root/.cargo  \
-    PATH="/root/.cargo/bin:$PATH"
+# ENV RUSTUP_HOME=/root/.rustup \
+#     RUSTFLAGS="-C target-feature=-crt-static" \
+#     CARGO_HOME=/root/.cargo  \
+#     PATH="/root/.cargo/bin:$PATH"
 
-RUN apt-get install -y nodejs  && node --version && elixir --version
+RUN apt-get update && apt-get install -y curl git nodejs  && node --version && elixir --version
 
 WORKDIR /build
 
